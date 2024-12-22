@@ -1,13 +1,8 @@
 import './home.css';
+import Kanban from './components/kanban';
 
 export default function Home() {
   return (
-  <div className="container">
-    <div>
-      <p>
-        hi
-      </p>
-    </div>
-  </div>
+  <div className="container"><Kanban></Kanban></div>
   )
 }
