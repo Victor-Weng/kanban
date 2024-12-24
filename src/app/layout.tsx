@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Kanban",
   description: "Kanban board demo",
+  icons: {
+    icon: 'icon.jpg',
+    shortcut: 'icon.jpg',
+    apple: 'icon.jopg',
+  }
 };
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {
