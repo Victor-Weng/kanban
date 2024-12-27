@@ -1,11 +1,34 @@
-import { users } from "../route"; // change for db
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export async function GET(
     _request: Request, // _ for unused params
-    { params }: { params: { id: string } }
+    { params }: { params: { id: string } } // String because url
 ) {
-    const { id } = await params;
-    const user = users.find((user) => user.id === parseInt(id));
-    return new Response(JSON.stringify(user));
+    const { id: userId } = await params;
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                id: parseInt(userId),
+            },
+        });
+        return new Response(JSON.stringify(user), {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    } catch (error) {
+        return new Response(
+            JSON.stringify({ error: "Specific user could not be found" }),
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+    }
+
     //return Response.json(user);
 }

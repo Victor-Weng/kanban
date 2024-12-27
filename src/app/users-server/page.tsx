@@ -1,7 +1,9 @@
 type User = {
     id: number;
     name: string;
+    email: string;
 };
+
 
 export default async function UsersServer() {
     await new Promise(resolve => setTimeout(resolve, 2000))
@@ -14,7 +16,7 @@ export default async function UsersServer() {
                 <li 
                 key={user.id}
                 >
-                    {user.name} ({user.id})
+                    {user.name} ({user.id}) ({user.email})
                 </li>
             ))}
         </ul>
