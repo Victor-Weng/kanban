@@ -14,7 +14,7 @@ const Navigation = () => {
             <Link href="/tasks/1" className = {pathname === "/tasks/1" ? "linkActive" : "linkInactive"}>
             Task
             </Link>
-            <Link href="/register" className = {pathname === "/register" ? "linkActive" : "linkInactive"}>
+            <Link href="/login" className = {pathname === "/login" ? "linkActive" : "linkInactive"}>
             Account
             </Link>
         </nav>
