@@ -1,19 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import {  User } from '@supabase/supabase-js';
+import { createClient } from "@/utils/supabase/client";
 
-type User = {
-    id: number;
-    name: string;
-    email: string;
-};
 
 export default function UsersClient() {
-    const [users, setUsers] = useState<User[]>([]); // array
-    const [loading, setLoading] = useState(true); // boolean
-    const [error, setError] = useState(""); // error messages
-    const [name, setName] = useState(""); // form input for name
-    const [email, setEmail] = useState(""); // form input for email
+    const supabase = createClient()
+    const [loading, setLoading] = useState(true)
+    const [fullname, setFullname] = useState<string | null>(null)
+    const [username, setUsername] = useState<string | null>(null)
+    const [website, setWebsite] = useState<string | null>(null)
+    const [error, setError] = useState<string | null>(null)
+    const [avatar_url, setAvatarUrl] = useState<string | null>(null)
 
     useEffect(() => {
         async function fetchUsers() {
@@ -21,7 +20,7 @@ export default function UsersClient() {
                 const response = await fetch("http://localhost:3000/users"); // replace with server url later
                 if (!response.ok) throw new Error("Failed to fetch users");
                 const data = await response.json();
-                setUsers(data);
+                setUsername(data);
             } catch (err) {
                 setError("Failed to fetch users");
                 if (err instanceof Error) {
@@ -88,7 +87,7 @@ export default function UsersClient() {
             <ul className="space-y-4 p-4">
                 {users.map((user) => (
                     <li key={user.id}>
-                        {user.name} ({user.id}) ({user.email})
+                        {user.Fullname} ({user.id}) ({user.email})
                     </li>
                 ))}
             </ul>
