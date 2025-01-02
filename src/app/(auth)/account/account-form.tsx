@@ -2,8 +2,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import {  User } from '@supabase/supabase-js'
+import {  Profile } from '@/utils/supabase/profile-type'
 
-// ...
+// user from logged in is passed from page.tsx. Find the corresponding
+// id under public.profile and change details there.
 
 export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient()
@@ -15,9 +17,10 @@ export default function AccountForm({ user }: { user: User | null }) {
     try {
       setLoading(true)
 
+      // gets the data for the matching profile
       const { data, error, status } = await supabase
         .from('profile')
-        .select(`full_name, username`)
+        .select(`full_name, username`) 
         .eq('id', user?.id)
         .single()
 
@@ -41,6 +44,8 @@ export default function AccountForm({ user }: { user: User | null }) {
     getProfile()
   }, [user, getProfile])
 
+  // UPDATE PROFILE
+  
   async function updateProfile({
     username,
   }: {
@@ -50,12 +55,13 @@ export default function AccountForm({ user }: { user: User | null }) {
     try {
       setLoading(true)
 
-      const { error } = await supabase.from('profile').upsert({
-        id: user?.id as string,
-        full_name: fullname,
-        username,
-        updated_at: new Date().toISOString(),
+      const { error } = await supabase
+      .from('profile')
+      .update({full_name: fullname,
+        username: username,
+        updated_at: new Date().toISOString(),        
       })
+      .eq('id', user?.id as string)
       if (error) throw error
       alert('Profile updated!')
     } catch (error) {
