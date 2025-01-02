@@ -10,13 +10,13 @@ export async function GET() {
     // });
 
     try {
-        const users = await prisma.user.findMany(); // returns a list of records
-        return new Response(JSON.stringify(users), {
+        const profiles = await prisma.profile.findMany(); // returns a list of records
+        return new Response(JSON.stringify(profiles), {
             headers: { "Content-Type": "application/json" },
         });
     } catch (error) {
         return new Response(
-            JSON.stringify({ error: "Failed to fetch users" }),
+            JSON.stringify({ error: "Failed to fetch profiles" }),
             {
                 headers: { "Content-Type": "application/json" },
                 status: 500,
@@ -24,6 +24,8 @@ export async function GET() {
         );
     }
 }
+
+/* not needed for profiles
 
 export async function POST(request: Request) {
     // const user = await request.json();
@@ -40,10 +42,10 @@ export async function POST(request: Request) {
     // });
 
     try {
-        const user = await request.json();
-        const newUser = await prisma.user.create({
+        const profile = await request.json();
+        const newProfile = await prisma.profile.create({
             data: {
-                name: user.name,
+                full_name: profile.full_name,
                 email: user.email,
             },
         });
@@ -61,3 +63,5 @@ export async function POST(request: Request) {
         });
     }
 }
+
+*/

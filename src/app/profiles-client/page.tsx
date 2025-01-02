@@ -1,57 +1,59 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {  User } from '@supabase/supabase-js';
+//import {  User } from '@supabase/supabase-js';
+import { Profile } from '@/utils/supabase/profile-type';
+import { Post } from '@/utils/supabase/post-type';
 import { createClient } from "@/utils/supabase/client";
 
 
 export default function UsersClient() {
     const supabase = createClient()
+    const [profile, setProfiles] = useState< Profile[]>([])
     const [loading, setLoading] = useState(true)
-    const [fullname, setFullname] = useState<string | null>(null)
-    const [username, setUsername] = useState<string | null>(null)
-    const [website, setWebsite] = useState<string | null>(null)
+    const [fullname, setFullname] = useState<string>("")
+    const [username, setUsername] = useState<string | null>("")
+    const [email, setEmail] = useState<string>("")
     const [error, setError] = useState<string | null>(null)
-    const [avatar_url, setAvatarUrl] = useState<string | null>(null)
+    const [post, setPost] = useState<string | null>(null)
 
     useEffect(() => {
-        async function fetchUsers() {
+        async function fetchProfiles() {
             try {
-                const response = await fetch("http://localhost:3000/users"); // replace with server url later
-                if (!response.ok) throw new Error("Failed to fetch users");
+                const response = await fetch("http://localhost:3000/profiles"); // replace with server url later
+                if (!response.ok) throw new Error("Failed to fetch profiles");
                 const data = await response.json();
-                setUsername(data);
+                setProfiles(data);
             } catch (err) {
-                setError("Failed to fetch users");
+                setError("Failed to fetch profiles");
                 if (err instanceof Error) {
-                    setError(`Failed to fetch users: ${err.message}`);
+                    setError(`Failed to fetch profiles: ${err.message}`);
                 }
             } finally {
                 setLoading(false);
             }
         }
-        fetchUsers();
+        fetchProfiles();
     }, []);
 
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
         try {
-            const response = await fetch("http://localhost:3000/users", {
+            const response = await fetch("http://localhost:3000/profiles", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ name, email }),
+                body: JSON.stringify({ fullname, email }),
             });
-            if (!response.ok) throw new Error("Failed to create user");
-            const newUser = await response.json();
-            setUsers([...users, newUser]);
-            setName(""); // clear the form input
+            if (!response.ok) throw new Error("Failed to create profile");
+            const newProfile = await response.json();
+            setFullname("");
             setEmail(""); // clear the form input
         } catch (err) {
-            setError("Failed to create user");
+            setError("Failed to create profile");
             if (err instanceof Error) {
-                setError(`Failed to create user: ${err.message}`);
+                setError(`Failed to create profile: ${err.message}`);
             }
         }
     }
@@ -64,11 +66,11 @@ export default function UsersClient() {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>
-                        Name:
+                        Full Name:
                         <input
                             type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={fullname}
+                            onChange={(e) => setFullname(e.target.value)}
                         />
                     </label>
                 </div>
@@ -82,12 +84,12 @@ export default function UsersClient() {
                         />
                     </label>
                 </div>
-                <button type="submit">Add User</button>
+                <button type="submit">Add Profile</button>
             </form>
             <ul className="space-y-4 p-4">
-                {users.map((user) => (
-                    <li key={user.id}>
-                        {user.Fullname} ({user.id}) ({user.email})
+                {profile.map((profile) => (
+                    <li key={profile.id}>
+                        ({profile.id}) ({profile.email})
                     </li>
                 ))}
             </ul>

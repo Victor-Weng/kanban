@@ -9,7 +9,7 @@ export async function GET(
     const { id: userId } = await params;
 
     try {
-        const user = await prisma.user.findUnique({
+        const user = await prisma.profile.findUnique({
             where: {
                 id: parseInt(userId),
             },
