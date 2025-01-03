@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "./components/navigation";
+import { AuthContextProvider } from './AuthContext';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
   // lang lets browser translate the page
   return (
     <html lang="en">
+      <AuthContextProvider>
       <body className="vert">
         <div className="header"><Navigation></Navigation></div>
         <div className="middle">
@@ -42,6 +44,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
         </div>
         <div className="footer"><p>im footer</p></div>
       </body>
+      </AuthContextProvider>
     </html>
   );
 }
