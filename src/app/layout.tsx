@@ -30,8 +30,8 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
 
   // lang lets browser translate the page
   return (
+    <AuthContextProvider>
     <html lang="en">
-      <AuthContextProvider>
       <body className="vert">
         <div className="header"><Navigation></Navigation></div>
         <div className="middle">
@@ -44,7 +44,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
         </div>
         <div className="footer"><p>im footer</p></div>
       </body>
-      </AuthContextProvider>
     </html>
+    </AuthContextProvider>
   );
 }

@@ -19,3 +19,26 @@ export async function POST(req: NextRequest) {
         status: 302,
     });
 }
+
+/*
+import { NextResponse } from 'next/server';
+import { useContext } from 'react';
+import AuthContext from '@/AuthContext';
+
+export async function GET() {
+    const { logout } = useContext(AuthContext);
+
+    try {
+        await logout();
+        return NextResponse.redirect('/login');
+    } catch (error) {
+        return new Response(
+            JSON.stringify({ error: 'Failed to log out' }),
+            {
+                headers: { 'Content-Type': 'application/json' },
+                status: 500,
+            }
+        );
+    }
+}
+    */
