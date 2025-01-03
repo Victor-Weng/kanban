@@ -34,7 +34,7 @@ export default function AccountForm({ user }: { user: User | null }) {
         setUsername(data.username)
       }
     } catch (error) {
-      alert('Error loading user data!')
+      alert('Please check your email for the confirmation link then try logging in after.')
     } finally {
       setLoading(false)
     }
