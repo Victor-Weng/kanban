@@ -1,0 +1,66 @@
+.vertical {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    background: purple;
+    padding: 0px;
+}
+
+.title {
+    text-align: left;
+    padding-left: 2rem;
+}
+
+.row-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0%;
+}
+
+.height-5 {
+    height: 5%;
+    background: rgb(222, 222, 222);
+}
+
+.height-100 {
+    height: 100%;
+    background: rgb(47, 139, 87);
+}
+
+.task-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 2%;
+    border-radius: 10px;
+    background: rgb(190, 190, 190);
+}
+
+.heading {
+    margin-top: 10%;
+    width: 100%;
+    text-align: center;
+}
+
+.task-column{
+    width: 100%;
+    height: 100%;
+    margin: 1%;
+}
+
+.task-item {
+    background-color: white;
+    width: 100%;
+    min-height: 10%;
+    border-radius: 10px;
+    margin: 2%;
+}

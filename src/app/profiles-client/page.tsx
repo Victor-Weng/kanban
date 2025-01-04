@@ -12,7 +12,6 @@ export default function UsersClient() {
     const [profile, setProfiles] = useState< Profile[]>([])
     const [loading, setLoading] = useState(true)
     const [fullname, setFullname] = useState<string>("")
-    const [username, setUsername] = useState<string | null>("")
     const [email, setEmail] = useState<string>("")
     const [error, setError] = useState<string | null>(null)
     const [post, setPost] = useState<string | null>(null)
