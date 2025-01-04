@@ -7,6 +7,8 @@ import './kanban.css'
 export default function Kanban(){
     const val = useContext(AuthContext); // authentication context (holds the value provided to the context provider)
 
+    
+
     const todoTasks = ['Task 1', 'Task 2', 'Task 3'];
     const inProgressTasks = ['Task 4', 'Task 5'];
     const completeTasks = ['Task 6', 'Task 7'];
