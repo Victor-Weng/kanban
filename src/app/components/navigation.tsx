@@ -19,9 +19,6 @@ const Navigation = () => {
                 <Link href="/" className = {pathname === "/" ? "linkActive" : "linkInactive"}>
                 Home
                 </Link>
-                <Link href="/tasks/1" className = {pathname === "/tasks/1" ? "linkActive" : "linkInactive"}>
-                Task
-                </Link>
                 { val.user ? (
                     <Link href="/account" className = {pathname === "/account" ? "linkActive" : "linkInactive"}>
                     Account
