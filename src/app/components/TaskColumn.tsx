@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import TaskCard from './TaskCard';
 import './kanban.css'
@@ -5,9 +7,10 @@ import './kanban.css'
 interface TaskColumnProps {
     column: string;
     tasks: [];
+    updateKanban: () => void;
 }
 
-const TaskColumn: React.FC<TaskColumnProps> = ({ column, tasks }) => {
+const TaskColumn: React.FC<TaskColumnProps> = ({ column, tasks, updateKanban }) => {
     const handleDelete = async (profileId: string, taskId: number) => {
         console.log(`Delete task with id ${taskId}`);
         try {
@@ -15,10 +18,10 @@ const TaskColumn: React.FC<TaskColumnProps> = ({ column, tasks }) => {
                 method: 'DELETE',
             });
             if (!response.ok) throw new Error('Failed to delete task');
+            updateKanban()
         } catch (error) {
             console.log(`error: ${error}`);
-        }
-          
+        } 
     };
 
     return (

@@ -2,12 +2,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../AuthContext';
 import TaskColumn from './TaskColumn';
+import {Post} from '../utils/supabase/post-type';
 
 export default function Kanban() {
     const { user } = useContext(AuthContext); // authentication context (holds the value provided to the context provider)
     const [loading, setLoading] = useState<boolean>(true);
-    const [tasks, setTasks] = useState<string[]>([]);
+    const [tasks, setTasks] = useState<Post[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [update, setUpdate] = useState<boolean>(false);
 
     useEffect(() => {
         if (!user) {
@@ -32,7 +34,14 @@ export default function Kanban() {
         }
 
         getTasks(user.id);
-    }, [user]);
+
+        console.log("useeffect triggered");
+
+    }, [user, update]);
+
+    const updateKanban = () => {
+        setUpdate(prev => !prev); // toggle refresh state
+    }
 
     // can later make these columns into an array ["todo","inProgress"..] so user can add their own columns
     // tasks is an array of the posts
@@ -62,9 +71,9 @@ export default function Kanban() {
                 <p>add tasks</p>
             </div>
             <div className="row-flex height-100">
-                <TaskColumn column="TO-DO" tasks={todoTasks} />
-                <TaskColumn column="IN PROGRESS" tasks={inProgressTasks} />
-                <TaskColumn column="COMPLETE" tasks={completeTasks} />
+                <TaskColumn column="TO-DO" tasks={todoTasks} updateKanban={updateKanban}/>
+                <TaskColumn column="IN PROGRESS" tasks={inProgressTasks} updateKanban={updateKanban}/>
+                <TaskColumn column="COMPLETE" tasks={completeTasks} updateKanban={updateKanban}/>
             </div>
             <div className="horz"></div>
         </div>
