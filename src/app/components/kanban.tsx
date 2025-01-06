@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../AuthContext';
 import TaskColumn from './TaskColumn';
 import {Post} from '../utils/supabase/post-type';
+import {Popup} from './popup';
 
 export default function Kanban() {
     const { user } = useContext(AuthContext); // authentication context (holds the value provided to the context provider)
@@ -10,6 +11,7 @@ export default function Kanban() {
     const [tasks, setTasks] = useState<Post[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [update, setUpdate] = useState<boolean>(false);
+    const [popup, setPopup] = useState<boolean>(false);
 
     useEffect(() => {
         if (!user) {
@@ -35,7 +37,7 @@ export default function Kanban() {
 
         getTasks(user.id);
 
-        console.log("useeffect triggered");
+        console.log("useEffect triggered");
 
     }, [user, update]);
 
@@ -52,6 +54,11 @@ export default function Kanban() {
     const todoTasks = tasks.filter(task => task.labels.includes('TODO'))
     const inProgressTasks = tasks.filter(task => task.labels.includes('IN-PROGRESS'))
     const completeTasks = tasks.filter(task => task.labels.includes('COMPLETE'))
+    
+    function togglePopup() {
+        console.log("popup toggled")
+        setPopup(prev => !prev);
+    }
 
     if (loading) {
         return <div>Loading...</div>;
@@ -62,20 +69,27 @@ export default function Kanban() {
     }
 
     return (
-        <div className="vertical">
-            <h1 className="title">Kanban Board</h1>
-            <div className="row-flex height-5">
-                <p>search bar</p>
-                <p>icons</p>
-                <p>drop down</p>
-                <p>add tasks</p>
+        <div className="whole">
+            {popup ? (
+                <Popup togglePopup={togglePopup}/>
+            ):(null)}
+        <div className="vertical">.
+                <h1 className="title">Kanban Board</h1>
+                <div className="row-flex height-5">
+                    <p>search bar</p>
+                    <p>icons</p>
+                    <p>drop down</p>
+                    <button onClick={togglePopup}>add task</button>
+                </div>
+                <div className="row-flex height-100">
+                    <TaskColumn column="TO-DO" tasks={todoTasks} updateKanban={updateKanban}/>
+                    <TaskColumn column="IN PROGRESS" tasks={inProgressTasks} updateKanban={updateKanban}/>
+                    <TaskColumn column="COMPLETE" tasks={completeTasks} updateKanban={updateKanban}/>
+                </div>
+                <div className="horz"></div>
             </div>
-            <div className="row-flex height-100">
-                <TaskColumn column="TO-DO" tasks={todoTasks} updateKanban={updateKanban}/>
-                <TaskColumn column="IN PROGRESS" tasks={inProgressTasks} updateKanban={updateKanban}/>
-                <TaskColumn column="COMPLETE" tasks={completeTasks} updateKanban={updateKanban}/>
-            </div>
-            <div className="horz"></div>
-        </div>
+         </div>
     );
 }
+
+

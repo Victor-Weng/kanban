@@ -94,3 +94,8 @@
     border-radius: 10px;
     background-color: red;
 }
+
+.whole {
+    width: 100%;
+    height: 100%;
+}
