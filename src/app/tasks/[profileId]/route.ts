@@ -32,22 +32,20 @@ export async function GET(
 }
 
 export async function POST(
-    _request: Request, // _ for unused params
+    request: Request, // used for request on POST
     {
         params,
     }: {
         params: {
-            title: string;
-            content: string;
-            labels: string[];
             profileId: string;
         };
     } // String because url
 ) {
-    const { title, content, labels, profileId } = await params;
+    const { profileId } = await params;
+    const { title, content, labels } = await request.json();
 
     try {
-        const user = await prisma.user.create({
+        const post = await prisma.post.create({
             data: {
                 title,
                 content,
@@ -55,18 +53,19 @@ export async function POST(
                 profileId,
             },
         });
-        return new Response(JSON.stringify(tasks), {
+        return new Response(JSON.stringify(post), {
             headers: {
                 "Content-Type": "application/json",
             },
         });
     } catch (error) {
         return new Response(
-            JSON.stringify({ error: "Tasks for profile could not be found" }),
+            JSON.stringify({ error: "Could not post the task" }),
             {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                status: 500,
             }
         );
     }

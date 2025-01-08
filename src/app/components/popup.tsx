@@ -1,15 +1,22 @@
+'use client';
+import { useContext } from "react";
 import "./popup.css";
-import {TaskForm} from './task-form';
+import TaskForm from './task-form';
+import AuthContext from "@/AuthContext";
 
-type Popup = {
-    togglePopup: (event: React.MouseEvent<HTMLElement>) => void;
+type PopupProps = {
+    togglePopupAction: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
-export const Popup = ({ togglePopup } : Popup) => (
-            <div className="Overlay">
-                <div className="PopupCard">
-                    <div>task-form</div>
-                    <button className="ClickButton" onClick={togglePopup}>Close</button>
-                </div>
-          </div>
-      );
+export const Popup: React.FC<PopupProps> = ({ togglePopupAction }) => {
+    const { user } = useContext(AuthContext); // Get user from AuthContext
+
+    return (
+        <div className="Overlay">
+            <div className="PopupCard">
+                <TaskForm user={user} />
+                <button className="ClickButton" onClick={togglePopupAction}>Close</button>
+            </div>
+        </div>
+    );
+};

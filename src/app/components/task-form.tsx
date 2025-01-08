@@ -1,41 +1,73 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import {  User } from '@supabase/supabase-js'
-import {  Profile } from '@/utils/supabase/profile-type'
+
+type TaskFormProps = {
+  user: User | null;
+} 
+
+type taskData = {
+  title: string;
+  content: string;
+  labels: string[];
+}
+
 
 // user from logged in is passed from page.tsx. Find the corresponding
 // id under public.profile and change details there.
 
-export default function TaskForm({ user }: { user: User | null }) {
+export default function TaskForm({ user }: TaskFormProps) {
+  const [profileId, setProfileId] = useState<string | null>(user?.id);
   const supabase = createClient()
-  const prisma = new PrismaClient();
-  const [loading, setLoading] = useState(true)
-  const [title, setTitle] = useState<string | null>(null)
-  const [content, setContent] = useState<string | null>(null)
-  const [labels, setLabels] = useState<string[]>(null)
-  const [user, setUser] = useState<Profile>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [title, setTitle] = useState<string>('')
+  const [content, setContent] = useState<string>('')
+  const [labels, setLabels] = useState<string[]>([])
 
-  useEffect(() => {
+  const handleLabelsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    const labelsArray = value.split(',').map(label => label.trim()); // remove whitespace from front and back
+    setLabels(labelsArray);
+  }
 
-    async function addTask({
+  useEffect(() => { // incase user logsout or something
+    setProfileId(user?.id);
+  },[user])
+
+  async function postTask({title, content, labels}: taskData, profileId: string) {
       try {
-        const response = await fetch(`http://localhost:3000/tasks/${profileId}`); // replace with server url later
-        if (!response.ok) throw new Error('Failed to fetch tasks for profile');
-        const data = await response.json();
-        setTasks(data);
-    } catch (err) {
-        if (err instanceof Error) {
-            setError(`Failed to fetch tasks: ${err.message}`);
-        } else {
-            setError('Failed to fetch tasks');
-        }
-    } finally {
-        setLoading(false);
-    }
-    })
+        setLoading(true);
+          const response = await fetch(`http://localhost:3000/tasks/${profileId}`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                title,
+                content,
+                labels,
+              }),
+            }); // replace with server url later
+          if (!response.ok) throw new Error('Failed to fetch tasks for profile');
+          const data: taskData = await response.json();
+          setTitle(data.title);
+          setContent(data.content);
+          setLabels(data.labels);
+      } catch (err) {
+          if (err instanceof Error) {
+              setError(`Failed to fetch tasks: ${err.message}`);
+          } else {
+              setError('Failed to fetch tasks');
+          }
+      } finally {
+          setLoading(false);
+      }
+  }
 
-  }, [user])
+  console.log("useEffect triggered from task-form");
 
   // ADD TASK
   
@@ -71,7 +103,7 @@ export default function TaskForm({ user }: { user: User | null }) {
         <label htmlFor="labels">Labels</label>
         <input
           id="labels"
-          type="text" onChange={(e) => setLabels(e.target.value)}
+          type="text" onChange={handleLabelsChange} // labels are string array
         />
       </div>
 
@@ -79,19 +111,11 @@ export default function TaskForm({ user }: { user: User | null }) {
       <div>
         <button
           className="button primary block"
-          onClick={() => updateProfile({ fullname, username })}
+          onClick={() => postTask({ title, content, labels }, profileId )}
           disabled={loading}
         >
           {loading ? 'Loading ...' : 'Update'}
         </button>
-      </div>
-
-      <div>
-        <form action="/signout" method="post">
-          <button className="button block" type="submit">
-            Sign out
-          </button>
-        </form>
       </div>
     </div>
   )
