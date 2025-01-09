@@ -71,7 +71,7 @@ export default function Kanban() {
     return (
         <div className="whole">
             {popup ? (
-                <Popup togglePopup={togglePopup}/>
+                <Popup togglePopupAction={togglePopup} updateKanban={updateKanban}/>
             ):(null)}
         <div className="vertical">.
                 <h1 className="title">Kanban Board</h1>
