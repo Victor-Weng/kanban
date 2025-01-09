@@ -4,7 +4,7 @@ interface TaskCardProps {
     title: string;
     content: string;
     labels: string[];
-    profile: string;
+    assignee: string;
     onDelete: () => void;
 }
 

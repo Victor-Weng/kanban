@@ -6,7 +6,7 @@ import './kanban.css'
 
 interface TaskColumnProps {
     column: string;
-    tasks: [];
+    tasks: { id: number; title: string; content: string; labels: string[]; profileId: string; }[];
     updateKanban: () => void;
 }
 

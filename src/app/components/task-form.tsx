@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useContext, useState } from 'react'
-import { createClient } from '@/utils/supabase/client'
 import {  User } from '@supabase/supabase-js'
 
 type TaskFormProps = {
@@ -18,8 +17,7 @@ type taskData = {
 // id under public.profile and change details there.
 
 export default function TaskForm({ user }: TaskFormProps) {
-  const [profileId, setProfileId] = useState<string | null>(user?.id);
-  const supabase = createClient()
+  const [profileId, setProfileId] = useState<string | null>(user?.id ?? null); //Use the nullish coalescing operator (??) to provide a fallback value of null if user?.id is undefined.
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [title, setTitle] = useState<string>('')
@@ -33,11 +31,11 @@ export default function TaskForm({ user }: TaskFormProps) {
   }
 
   useEffect(() => { // incase user logsout or something
-    setProfileId(user?.id);
+    setProfileId(user?.id ?? null);
   },[user])
 
-  async function postTask({title, content, labels}: taskData, profileId: string) {
-      try {
+  async function postTask({title, content, labels}: taskData, profileId: string | null) {
+      try {     
         setLoading(true);
           const response = await fetch(`http://localhost:3000/tasks/${profileId}`,
             {
@@ -51,35 +49,20 @@ export default function TaskForm({ user }: TaskFormProps) {
                 labels,
               }),
             }); // replace with server url later
-          if (!response.ok) throw new Error('Failed to fetch tasks for profile');
+          if (!response.ok) throw new Error('Failed to add task');
           const data: taskData = await response.json();
           setTitle(data.title);
           setContent(data.content);
           setLabels(data.labels);
       } catch (err) {
           if (err instanceof Error) {
-              setError(`Failed to fetch tasks: ${err.message}`);
+              setError(`Failed to add task: ${err.message}`);
           } else {
-              setError('Failed to fetch tasks');
+              setError('Failed to add task');
           }
       } finally {
           setLoading(false);
       }
-  }
-
-  console.log("useEffect triggered from task-form");
-
-  // ADD TASK
-  
-  async function addTask({
-    title, content, labels, profileId,
-  }: {
-    title: string | null
-    content: string | null
-    labels: string[] | null
-    profileId: string | null
-  }) {
-    
   }
 
   return (
@@ -106,15 +89,13 @@ export default function TaskForm({ user }: TaskFormProps) {
           type="text" onChange={handleLabelsChange} // labels are string array
         />
       </div>
-
-      //
       <div>
         <button
           className="button primary block"
           onClick={() => postTask({ title, content, labels }, profileId )}
           disabled={loading}
         >
-          {loading ? 'Loading ...' : 'Update'}
+          {loading ? 'Loading ...' : 'Add Task'}
         </button>
       </div>
     </div>
