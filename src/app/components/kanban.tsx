@@ -1,5 +1,6 @@
 "use client"
 import React, { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import AuthContext from '../AuthContext';
 import TaskColumn from './TaskColumn';
 import {Post} from '../utils/supabase/post-type';
@@ -13,6 +14,7 @@ export default function Kanban() {
     const [error, setError] = useState<string | null>(null);
     const [update, setUpdate] = useState<boolean>(false);
     const [popup, setPopup] = useState<boolean>(false);
+    const router = useRouter();
 
     useEffect(() => {
         if (!user) {
@@ -40,7 +42,7 @@ export default function Kanban() {
 
         console.log("useEffect triggered");
 
-    }, [user, update]);
+    }, [user, update, router.asPath]);
 
     const updateKanban = () => {
         setUpdate(prev => !prev); // toggle refresh state
@@ -62,7 +64,10 @@ export default function Kanban() {
     }
 
     if (loading) {
-        return <div>Loading... Have you logged in first? Try refreshing the page if nothing shows up.</div>;
+        return <div>
+            <h1>Loading... Have you signed up/logged in first? </h1>;
+            <p>If you already logged in: Try refreshing the page if nothing shows up.</p>
+        </div>
     }
 
     if (error) {
