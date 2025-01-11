@@ -1,11 +1,10 @@
-"use client";
+"use client"
 import React, { useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import AuthContext from '../AuthContext';
 import TaskColumn from './TaskColumn';
-import { Post } from '../utils/supabase/post-type';
-import { Popup } from './popup';
-import { NEXT_URL } from '@/url';
+import {Post} from '../utils/supabase/post-type';
+import {Popup} from './popup';
+import {NEXT_URL} from '@/url';
 
 export default function Kanban() {
     const { user } = useContext(AuthContext); // authentication context (holds the value provided to the context provider)
@@ -14,16 +13,10 @@ export default function Kanban() {
     const [error, setError] = useState<string | null>(null);
     const [update, setUpdate] = useState<boolean>(false);
     const [popup, setPopup] = useState<boolean>(false);
-    const router = useRouter();
-    const [isMounted, setIsMounted] = useState(false); // run only on client side
 
     useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    useEffect(() => {
-        if (!user || !isMounted) {
-            return; // Exit early if user is null or component is not mounted
+        if (!user) {
+            return; // Exit early if user is null
         }
 
         async function getTasks(profileId: string) {
@@ -47,7 +40,7 @@ export default function Kanban() {
 
         console.log("useEffect triggered");
 
-    }, [user, router.asPath, isMounted]);
+    }, [user, update]);
 
     const updateKanban = () => {
         setUpdate(prev => !prev); // toggle refresh state
@@ -66,10 +59,6 @@ export default function Kanban() {
     function togglePopup() {
         console.log("popup toggled")
         setPopup(prev => !prev);
-    }
-
-    if (!isMounted) {
-        return null; // Render nothing on the server
     }
 
     if (loading) {
@@ -106,3 +95,5 @@ export default function Kanban() {
          </div>
     );
 }
+
+
