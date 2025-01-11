@@ -74,7 +74,7 @@ export default function Kanban() {
             {popup ? (
                 <Popup togglePopupAction={togglePopup} updateKanban={updateKanban}/>
             ):(null)}
-        <div className="vertical highlight-bg">.
+        <div className="vertical highlight-bg">
                 <h1 className="title">Kanban Board</h1>
                 <div className="row-flex height-5 mid-bg">
                     <p className="highlight-txt">search bar</p>
