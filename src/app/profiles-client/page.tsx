@@ -33,56 +33,12 @@ export default function UsersClient() {
         fetchProfiles();
     }, []);
 
-    async function handleSubmit(event: React.FormEvent) {
-        event.preventDefault();
-        try {
-            const response = await fetch(`${NEXT_URL}/profiles`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ fullname, email }),
-            });
-            if (!response.ok) throw new Error("Failed to create profile");
-            const newProfile = await response.json();
-            setFullname("");
-            setEmail(""); // clear the form input
-        } catch (err) {
-            setError("Failed to create profile");
-            if (err instanceof Error) {
-                setError(`Failed to create profile: ${err.message}`);
-            }
-        }
-    }
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Full Name:
-                        <input
-                            type="text"
-                            value={fullname}
-                            onChange={(e) => setFullname(e.target.value)}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Email:
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </label>
-                </div>
-                <button type="submit">Add Profile</button>
-            </form>
             <ul className="space-y-4 p-4">
                 {profile.map((profile) => (
                     <li key={profile.id}>
