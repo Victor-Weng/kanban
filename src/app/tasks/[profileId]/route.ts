@@ -36,9 +36,9 @@ export async function POST(
     {
         params,
     }: {
-        params: {
+        params: Promise<{
             profileId: string;
-        };
+        }>;
     } // String because url
 ) {
     const { profileId } = await params;
