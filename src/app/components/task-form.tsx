@@ -1,6 +1,8 @@
 'use client'
 import React, { useEffect, useContext, useState } from 'react'
 import {  User } from '@supabase/supabase-js'
+import './kanban.css'
+import './popup.css'
 
 type TaskFormProps = {
   user: User | null;
@@ -66,15 +68,15 @@ export default function TaskForm({ user }: TaskFormProps) {
   }
 
   return (
-    <div className="form-widget">
+    <div className="form-widget flex-end">
 
       {/* ... */}
 
-      <div>
+      <div className="input-card">
         <label htmlFor="title">Title</label>
         <input id="title" type="text" onChange={(e) => setTitle(e.target.value)}/>
       </div>
-      <div>
+      <div className="input-card">
         <label htmlFor="content">Content</label>
         <input
           id="content"
@@ -82,8 +84,8 @@ export default function TaskForm({ user }: TaskFormProps) {
           onChange={(e) => setContent(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="labels">Labels</label>
+      <div className="input-card">
+        <label htmlFor="labels">Labels (TODO, IN-PROGRESS, COMPLETE)</label>
         <input
           id="labels"
           type="text" onChange={handleLabelsChange} // labels are string array
@@ -91,7 +93,7 @@ export default function TaskForm({ user }: TaskFormProps) {
       </div>
       <div>
         <button
-          className="button primary block"
+          className="ClickButton"
           onClick={() => postTask({ title, content, labels }, profileId )}
           disabled={loading}
         >

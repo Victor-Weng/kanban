@@ -73,9 +73,6 @@ export default function AccountForm({ user }: { user: User | null }) {
 
   return (
     <div className="form-widget">
-
-      {/* ... */}
-
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={user?.email} disabled />
@@ -100,7 +97,7 @@ export default function AccountForm({ user }: { user: User | null }) {
       </div>
       <div>
         <button
-          className="button primary block"
+          className="ClickButton"
           onClick={() => updateProfile({ fullname, username })}
           disabled={loading}
         >
@@ -110,7 +107,7 @@ export default function AccountForm({ user }: { user: User | null }) {
 
       <div>
         <form action="/signout" method="post">
-          <button className="button block" type="submit">
+          <button className="ClickButton" type="submit">
             Sign out
           </button>
         </form>

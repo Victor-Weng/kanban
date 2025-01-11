@@ -7,6 +7,7 @@ import { useEffect, useState, useContext } from 'react';
 import { User } from '@supabase/supabase-js'
 import AuthContext from '../AuthContext'
 
+
 const Navigation = () => {
     const pathname = usePathname();
     const val = useContext(AuthContext); // authentication context (holds the value provided to the context provider)
@@ -15,10 +16,11 @@ const Navigation = () => {
     console.log(val.user)
     
     return (
-            <nav>
+            <nav className="accent-bg">
                 <Link href="/" className = {pathname === "/" ? "linkActive" : "linkInactive"}>
                 Home
                 </Link>
+                <Link href="/profiles-server" className = {pathname === "/profiles-server" ? "linkActive" : "linkInactive"}>Profiles</Link>
                 { val.user ? (
                     <Link href="/account" className = {pathname === "/account" ? "linkActive" : "linkInactive"}>
                     Account

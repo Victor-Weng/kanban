@@ -4,7 +4,6 @@
     height: 100%;
     width: 100%;
     justify-content: center;
-    background: purple;
     padding: 0px;
 }
 
@@ -37,8 +36,9 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 10%;
-    width: 95%;
+    min-height: 10%;
+    max-height: 100%;
+    max-width: 95%;
     padding-bottom: 1%;
     border-radius: 10px;
     margin: 2%;
@@ -78,8 +78,9 @@
     display: flex;
     padding: 1%;
     flex-direction: row;
-    width: 100%;
+    width: 95%;
     justify-content: space-around;
+    border-radius: 5px;
 }
 
 .task-footer {
@@ -99,3 +100,35 @@
     width: 100%;
     height: 100%;
 }
+
+.accent-bg {
+    background-color: #0E1C36;
+  }
+  
+  .mid-bg {
+    background-color: #247BA0;
+  }
+  
+  .highlight-bg {
+    background-color: white;
+  }
+  
+  .accent-txt{
+    color: #0E1C36;
+  }
+  
+  .mid-txt {
+    color: #247BA0;
+  }
+
+  .highlight-txt{
+    color: white;
+  }
+  
+  .bold {
+    font-weight: 500;
+  }
+  
+  .reg {
+    font-weight: 400;
+  }

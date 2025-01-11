@@ -1,7 +1,6 @@
 nav {
     display: flex;
     flex-direction: row;
-    background-color: red;
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -16,5 +15,39 @@ nav {
 .linkInactive {
     flex: 1 1 auto;
     text-align: center;
-    color: blue;
+    color: #247BA0;
+    text-decoration: none;
 }
+
+
+.accent-bg {
+    background-color: #0E1C36;
+  }
+  
+  .mid-bg {
+    background-color: #247BA0;
+  }
+  
+  .highlight-bg {
+    background-color: white;
+  }
+  
+  .accent-txt{
+    color: #0E1C36;
+  }
+  
+  .mid-txt {
+    color: #247BA0;
+  }
+
+  .highlight-txt{
+    color: white;
+  }
+  
+  .bold {
+    font-weight: 500;
+  }
+  
+  .reg {
+    font-weight: 400;
+  }

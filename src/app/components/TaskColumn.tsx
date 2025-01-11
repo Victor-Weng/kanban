@@ -26,7 +26,7 @@ const TaskColumn: React.FC<TaskColumnProps> = ({ column, tasks, updateKanban }) 
 
     return (
         <div className="task-column">
-            <div className="heading">{column}</div>
+            <div className="heading accent-txt bold">{column}</div>
             {tasks.map((task, index) => (
                     <TaskCard 
                     key={index} 

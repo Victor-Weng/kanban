@@ -73,15 +73,15 @@ export default function Kanban() {
             {popup ? (
                 <Popup togglePopupAction={togglePopup} updateKanban={updateKanban}/>
             ):(null)}
-        <div className="vertical">.
+        <div className="vertical highlight-bg">.
                 <h1 className="title">Kanban Board</h1>
-                <div className="row-flex height-5">
-                    <p>search bar</p>
-                    <p>icons</p>
-                    <p>drop down</p>
-                    <button onClick={togglePopup}>add task</button>
+                <div className="row-flex height-5 mid-bg">
+                    <p className="highlight-txt">search bar</p>
+                    <p className="highlight-txt">icons</p>
+                    <p className="highlight-txt">drop down</p>
+                    <button className="accent-bg highlight-txt" onClick={togglePopup}>add task</button>
                 </div>
-                <div className="row-flex height-100">
+                <div className="row-flex height-100 highlight-bg">
                     <TaskColumn column="TO-DO" tasks={todoTasks} updateKanban={updateKanban}/>
                     <TaskColumn column="IN PROGRESS" tasks={inProgressTasks} updateKanban={updateKanban}/>
                     <TaskColumn column="COMPLETE" tasks={completeTasks} updateKanban={updateKanban}/>

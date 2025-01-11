@@ -38,11 +38,11 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
           <div className="sidebar">
             sidebar
           </div>
-          <div className="content">
+          <div className="content highlight-bg">
             {children}
           </div>
         </div>
-        <div className="footer"><p>im footer</p></div>
+        <div className="footer accent-bg"><p className="mid-txt">Kanban Demo</p></div>
       </body>
     </html>
     </AuthContextProvider>
