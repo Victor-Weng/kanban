@@ -62,7 +62,7 @@ export default function Kanban() {
     }
 
     if (loading) {
-        return <div>Loading... Have you logged in first?</div>;
+        return <div>Loading... Have you logged in first? Try refreshing the page if nothing shows up.</div>;
     }
 
     if (error) {
