@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export async function GET(
     _request: Request, // _ for unused params
-    { params }: { params: { id: string } } // String because url
+    { params }: { params: Promise<{ id: string }> } // String because url
 ) {
     const { id: profileId } = await params;
 
