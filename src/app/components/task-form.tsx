@@ -82,7 +82,7 @@ export default function TaskForm({ user }: TaskFormProps) {
       </div>
       <div className="input-card">
         <label htmlFor="labels">Labels (TODO, IN-PROGRESS, COMPLETE)</label>
-        <select id="labels" onChange={handleLabelsChange}>
+        <select id="labels" onChange={handleLabelsChange} defaultValue="TODO">
           <option value="TODO">TODO</option>
           <option value="IN-PROGRESS">IN-PROGRESS</option>
           <option value="COMPLETE">COMPLETE</option>
