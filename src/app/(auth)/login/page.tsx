@@ -13,4 +13,3 @@ export default function LoginPage() {
     </form>
   )
 }
-// id linkes to htmlFor and name links to FormData for ./actions
