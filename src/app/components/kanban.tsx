@@ -4,6 +4,7 @@ import AuthContext from '../AuthContext';
 import TaskColumn from './TaskColumn';
 import {Post} from '../utils/supabase/post-type';
 import {Popup} from './popup';
+import {NEXT_URL} from '@/url';
 
 export default function Kanban() {
     const { user } = useContext(AuthContext); // authentication context (holds the value provided to the context provider)
@@ -20,7 +21,7 @@ export default function Kanban() {
 
         async function getTasks(profileId: string) {
             try {
-                const response = await fetch(`http://localhost:3000/tasks/${profileId}`); // replace with server url later
+                const response = await fetch(`${NEXT_URL}/tasks/${profileId}`); // replace with server url later
                 if (!response.ok) throw new Error('Failed to fetch tasks for profile');
                 const data = await response.json();
                 setTasks(data);

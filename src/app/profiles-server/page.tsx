@@ -1,8 +1,9 @@
 import { Profile } from '@/utils/supabase/profile-type';
+import {NEXT_URL} from '@/url'
 
 export default async function UsersServer() {
     await new Promise(resolve => setTimeout(resolve, 2000))
-    const response = await fetch("http://localhost:3000/profiles");
+    const response = await fetch(`${NEXT_URL}/profiles`);
     const profiles = await response.json();
 
     return (

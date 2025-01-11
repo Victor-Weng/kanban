@@ -3,6 +3,7 @@ import React, { useEffect, useContext, useState } from 'react'
 import {  User } from '@supabase/supabase-js'
 import './kanban.css'
 import './popup.css'
+import {NEXT_URL} from '@/url'
 
 type TaskFormProps = {
   user: User | null;
@@ -39,7 +40,7 @@ export default function TaskForm({ user }: TaskFormProps) {
   async function postTask({title, content, labels}: taskData, profileId: string | null) {
       try {     
         setLoading(true);
-          const response = await fetch(`http://localhost:3000/tasks/${profileId}`,
+          const response = await fetch(`${NEXT_URL}/tasks/${profileId}`,
             {
               method: 'POST',
               headers: {

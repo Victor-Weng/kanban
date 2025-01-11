@@ -1,8 +1,7 @@
-
-
 import React from 'react';
 import TaskCard from './TaskCard';
 import './kanban.css'
+import {NEXT_URL} from '@/url'
 
 interface TaskColumnProps {
     column: string;
@@ -14,7 +13,7 @@ const TaskColumn: React.FC<TaskColumnProps> = ({ column, tasks, updateKanban }) 
     const handleDelete = async (profileId: string, taskId: number) => {
         console.log(`Delete task with id ${taskId}`);
         try {
-            const response = await fetch(`http://localhost:3000/tasks/${profileId}/${taskId}`, {
+            const response = await fetch(`${NEXT_URL}/tasks/${profileId}/${taskId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) throw new Error('Failed to delete task');

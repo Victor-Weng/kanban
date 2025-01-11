@@ -1,10 +1,8 @@
 "use client";
-
 import { useState, useEffect } from "react";
-//import {  User } from '@supabase/supabase-js';
 import { Profile } from '@/utils/supabase/profile-type';
-import { Post } from '@/utils/supabase/post-type';
 import { createClient } from "@/utils/supabase/client";
+import {NEXT_URL} from '@/url'
 
 
 export default function UsersClient() {
@@ -19,7 +17,7 @@ export default function UsersClient() {
     useEffect(() => {
         async function fetchProfiles() {
             try {
-                const response = await fetch("http://localhost:3000/profiles"); // replace with server url later
+                const response = await fetch(`${NEXT_URL}/profiles`); // replace with server url later
                 if (!response.ok) throw new Error("Failed to fetch profiles");
                 const data = await response.json();
                 setProfiles(data);
@@ -38,7 +36,7 @@ export default function UsersClient() {
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
         try {
-            const response = await fetch("http://localhost:3000/profiles", {
+            const response = await fetch(`${NEXT_URL}/profiles`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
