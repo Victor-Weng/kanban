@@ -20,7 +20,7 @@ const Navigation = () => {
                 <Link href="/" className = {pathname === "/" ? "linkActive" : "linkInactive"}>
                 Home
                 </Link>
-                <Link href="/profiles-server" className = {pathname === "/profiles-client" ? "linkActive" : "linkInactive"}>Profiles</Link>
+                <Link href="/profiles-client" className = {pathname === "/profiles-client" ? "linkActive" : "linkInactive"}>Profiles</Link>
                 { val.user ? (
                     <Link href="/account" className = {pathname === "/account" ? "linkActive" : "linkInactive"}>
                     Account
