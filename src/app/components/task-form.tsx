@@ -21,7 +21,7 @@ export default function TaskForm({ user }: TaskFormProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [labels, setLabels] = useState<string[]>([]);
+  const [labels, setLabels] = useState<string[]>(["TODO"]);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleLabelsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -82,8 +82,7 @@ export default function TaskForm({ user }: TaskFormProps) {
       </div>
       <div className="input-card">
         <label htmlFor="labels">Labels</label>
-        <select id="labels" onChange={handleLabelsChange} defaultValue="">
-          <option value="" disabled>Select a label</option>
+        <select id="labels" onChange={handleLabelsChange} defaultValue="TODO">
           <option value="TODO">TODO</option>
           <option value="IN-PROGRESS">IN-PROGRESS</option>
           <option value="COMPLETE">COMPLETE</option>
