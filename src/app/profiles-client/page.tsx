@@ -42,7 +42,7 @@ export default function UsersClient() {
             <ul className="space-y-4 p-4">
                 {profile.map((profile) => (
                     <li key={profile.id}>
-                        ({profile.username}) ({profile.email})
+                        ({profile.username ? (profile.username):("guest")})
                     </li>
                 ))}
             </ul>
